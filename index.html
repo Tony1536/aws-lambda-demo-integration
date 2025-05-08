@@ -14,7 +14,7 @@
         }
 
         .header {
-            background-image: url('images/header-marketing.jpg'); /
+            background-image: url('images/header-marketing.jpg');
             background-size: cover;
             background-position: center;
             height: 200px;
@@ -41,10 +41,9 @@
         }
     </style>
 </head>
-
 <body>
     <div class="header">
-        <img src="images/logo-marketing.jpg" alt="Company Logo" style="height: 80px;" />
+        <img src="images/logo-marketing.jpg" alt="logo marketing" style="height: 80px;" />
         <div>Welcome to Our Client Portal</div>
     </div>
 
@@ -90,14 +89,16 @@
     </div>
 
     <script>
-        const apiBaseUrl = 'https://YOUR_API_ID.execute-api.us-east-1.amazonaws.com/dev';
+        const apiBaseUrl = 'https://j3u09m2vgh.execute-api.us-east-1.amazonaws.com/dev';
 
         const registerForm = document.getElementById('registerForm');
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const email = document.getElementById('clientEmail').value;
             const data = {
+                clientsID: email, // ✅ usado como clave primaria
                 name: document.getElementById('clientName').value,
-                email: document.getElementById('clientEmail').value,
+                email: email,
                 company: document.getElementById('clientCompany').value,
                 service: document.getElementById('clientService').value
             };
@@ -126,10 +127,10 @@
         const fetchForm = document.getElementById('fetchForm');
         fetchForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const email = document.getElementById('fetchClientEmail').value;
+            const clientsID = document.getElementById('fetchClientEmail').value; // ✅ corregido
 
             try {
-                const response = await fetch(`${apiBaseUrl}/clients/${email}`);
+                const response = await fetch(`${apiBaseUrl}/clients/${clientsID}`);
 
                 if (!response.ok) {
                     if (response.status === 404) {
@@ -152,5 +153,3 @@
         });
     </script>
 </body>
-
-</html>
